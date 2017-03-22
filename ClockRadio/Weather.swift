@@ -1,12 +1,12 @@
 
 struct CurrentConditions {
-    var temperature: Float?
+    var temperature: Int?
     var description: String?
-    var windDirection: Int?
-    var windSpeed: Float?
-    var windGust: Float?
+    var windDirection: String?
+    var windSpeed: Int?
+    var windGust: Int?
     var visibility: Int?
-    var relativeHumidity: Float?
+    var relativeHumidity: Double?
 }
 
 struct Forecast {
@@ -17,7 +17,5 @@ struct Forecast {
     var windDirection: String?
     var shortForecast: String?
     var detailedForecast: String?
-    
-
 
 }

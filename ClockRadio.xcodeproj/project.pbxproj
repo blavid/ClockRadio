@@ -10,6 +10,7 @@
 		45EE38EB2859429E1EA2A311 /* Pods_ClockRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D957768E2AD9484D0F9583C /* Pods_ClockRadio.framework */; };
 		7F0C19A81E8190B900AF1215 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7F0C19A71E8190B900AF1215 /* Podfile */; };
 		7F0C19AA1E81E78D00AF1215 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */; };
+		7F0C19AC1E8221C200AF1215 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C19AB1E8221C200AF1215 /* Radio.swift */; };
 		7FD9EEF41E80610C00B356E3 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD9EEF31E80610C00B356E3 /* Weather.swift */; };
 		7FF267EB1E7F332700E54AEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF267EA1E7F332700E54AEE /* AppDelegate.swift */; };
 		7FF267ED1E7F332700E54AEE /* AlarmClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF267EC1E7F332700E54AEE /* AlarmClockViewController.swift */; };
@@ -22,6 +23,7 @@
 		3D957768E2AD9484D0F9583C /* Pods_ClockRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClockRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0C19A71E8190B900AF1215 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		7F0C19AB1E8221C200AF1215 /* Radio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		7FD9EEF31E80610C00B356E3 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		7FF267E71E7F332700E54AEE /* ClockRadio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClockRadio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF267EA1E7F332700E54AEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7F0C19AD1E82CEB300AF1215 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7FF267F11E7F332700E54AEE /* Assets.xcassets */,
+				7FF267F31E7F332700E54AEE /* LaunchScreen.storyboard */,
+				7FF267F61E7F332700E54AEE /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		7FF267DE1E7F332700E54AEE = {
 			isa = PBXGroup;
 			children = (
@@ -85,12 +97,11 @@
 		7FF267E91E7F332700E54AEE /* ClockRadio */ = {
 			isa = PBXGroup;
 			children = (
+				7F0C19AD1E82CEB300AF1215 /* Supporting Files */,
 				7FF267EA1E7F332700E54AEE /* AppDelegate.swift */,
 				7FF267EC1E7F332700E54AEE /* AlarmClockViewController.swift */,
 				7FF267EE1E7F332700E54AEE /* Main.storyboard */,
-				7FF267F11E7F332700E54AEE /* Assets.xcassets */,
-				7FF267F31E7F332700E54AEE /* LaunchScreen.storyboard */,
-				7FF267F61E7F332700E54AEE /* Info.plist */,
+				7F0C19AB1E8221C200AF1215 /* Radio.swift */,
 				7FD9EEF31E80610C00B356E3 /* Weather.swift */,
 				7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */,
 			);
@@ -222,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F0C19AC1E8221C200AF1215 /* Radio.swift in Sources */,
 				7FF267ED1E7F332700E54AEE /* AlarmClockViewController.swift in Sources */,
 				7F0C19AA1E81E78D00AF1215 /* WeatherModel.swift in Sources */,
 				7FD9EEF41E80610C00B356E3 /* Weather.swift in Sources */,

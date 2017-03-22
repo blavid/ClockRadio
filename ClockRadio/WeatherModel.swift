@@ -22,7 +22,12 @@ class WeatherModel {
     var forecast = Forecast()
     var delegate: WeatherModelDelegate?
     
-    func fetchLocalWeatherStation() {
+    func fetchAllWeather() {
+        fetchForecast()
+        fetchLocalWeatherConditions()
+    }
+    
+    private func fetchLocalWeatherConditions() {
         
         let weatherStationsUrl = "\(baseWeatherUrl)/points/\(latitude),\(longitude)/stations"
         Alamofire.request(weatherStationsUrl)
@@ -32,32 +37,37 @@ class WeatherModel {
                 let closestWeatherStation = json["observationStations"][0].string ?? ""
                 print(closestWeatherStation)
                 self.closestWeatherStation = closestWeatherStation
+                self.fetchCurrentConditionsFromStationUrl(closestWeatherStation)
             }
             
         }
     }
     
-    func fetchCurrentConditionsFromStationUrl(_ stationURL: String) {
+    private func fetchCurrentConditionsFromStationUrl(_ stationURL: String) {
         let stationConditionsUrl = stationURL + "/observations/current"
         Alamofire.request(stationConditionsUrl)
         .responseJSON { (response) in
             var currentConditions = CurrentConditions()
             if let responseValue = response.result.value {
                 let json = JSON(responseValue)
-                currentConditions.temperature = json["properties"]["temperature"]["value"].float
+                let tempC = json["properties"]["temperature"]["value"].double ?? 0
+                currentConditions.temperature = self.convertCtoF(tempC)
                 currentConditions.description = json["properties"]["textDescription"].string
-                currentConditions.windDirection = json["properties"]["temperature"]["value"].int
-                currentConditions.windSpeed = json["properties"]["windSpeed"]["value"].float
-                currentConditions.windGust = json["properties"]["windGust"]["value"].float
-                currentConditions.visibility = json["properties"]["visibility"]["value"].int
-                currentConditions.relativeHumidity = json["properties"]["relativeHumidity"]["value"].float
+                currentConditions.windDirection = self.cardinalDirectionFromDegree(json["properties"]["windDirection"]["value"].double!)
+                let windSpeedMeters = json["properties"]["windSpeed"]["value"].double ?? 0
+                currentConditions.windSpeed = self.convertKilometerstoMiles(windSpeedMeters)
+                let windGustMeters = json["properties"]["windGust"]["value"].double ?? 0
+                currentConditions.windGust = self.convertKilometerstoMiles(windGustMeters)
+                let visibilityMeters = json["properties"]["visibility"]["value"].int ?? 0
+                currentConditions.visibility = self.convertKilometerstoMiles(Double(visibilityMeters))
+                currentConditions.relativeHumidity = json["properties"]["relativeHumidity"]["value"].double
                 self.currentConditioins = currentConditions
                 self.delegate?.dataIsReady()
             }
         }
     }
     
-    func fetchForecast() {
+    private func fetchForecast() {
         let forecastUrl = "\(baseWeatherUrl)/points/\(latitude),\(longitude)/forecast"
         Alamofire.request(forecastUrl)
             .responseJSON { (response) in
@@ -76,4 +86,66 @@ class WeatherModel {
                 }
         }
     }
+    
+    private func cardinalDirectionFromDegree(_ degree: Double) -> String {
+        // How many degrees contained in each cardinal direction
+        let inc = 22.5
+        
+        // Where to start counting
+        let base = 11.25
+        
+        switch degree {
+        case let x where ( x > 360 - base && x <= 360 ) || (x >= 0 && x <= base ):
+            return "N"
+        case let x where x > base && x <= base + (inc * 1):
+            return "NNE"
+        case let x where x > base + (inc * 1) && x <= base + (inc * 2):
+            return "NE"
+        case let x where x > base + (inc * 2) && x <= base + (inc * 3):
+            return "ENE"
+        case let x where x > base + (inc * 3) && x <= base + (inc * 4):
+            return "E"
+        case let x where x > base + (inc * 4) && x <= base + (inc * 5):
+            return "ESE"
+        case let x where x > base + (inc * 5) && x <= base + (inc * 6):
+            return "SE"
+        case let x where x > base + (inc * 6) && x <= base + (inc * 7):
+            return "SSE"
+        case let x where x > base + (inc * 7) && x <= base + (inc * 8):
+            return "S"
+        case let x where x > base + (inc * 8) && x <= base + (inc * 9):
+            return "SSW"
+        case let x where x > base + (inc * 9) && x <= base + (inc * 10):
+            return "SW"
+        case let x where x > base + (inc * 10) && x <= base + (inc * 11):
+            return "WSW"
+        case let x where x > base + (inc * 11) && x <= base + (inc * 12):
+            return "W"
+        case let x where x > base + (inc * 12) && x <= base + (inc * 13):
+            return "WNW"
+        case let x where x > base + (inc * 13) && x <= base + (inc * 14):
+            return "NW"
+        case let x where x > base + (inc * 14) && x <= base + (inc * 15):
+            return "NNW"
+        default:
+            return "Unknown"
+        }
+    }
+    
+    private func convertFtoC(_ degreesF: Double) -> Int {
+        return Int((degreesF - 32) * 5 / 9)
+    }
+    
+    private func convertCtoF(_ degreesC: Double) -> Int {
+        return Int((degreesC + 32) * 9 / 5)
+    }
+    
+    private func convertKilometerstoMiles(_ kilometers: Double) -> Int {
+        return Int(kilometers * 0.621371)
+    }
+    
+    private func convertMilestoKilometers(_ miles: Double) -> Int {
+        return Int(miles * 1.60934)
+    }
+    
 }
