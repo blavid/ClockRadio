@@ -7,12 +7,9 @@ struct CurrentConditions {
     var windGust: Float?
     var visibility: Int?
     var relativeHumidity: Float?
-    
-
 }
 
 struct Forecast {
-    var number: Int?
     var name: String?
     var isDayTime: Bool?
     var temperature: Int?
@@ -21,5 +18,6 @@ struct Forecast {
     var shortForecast: String?
     var detailedForecast: String?
     
+
 
 }

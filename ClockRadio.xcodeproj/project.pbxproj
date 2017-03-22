@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45EE38EB2859429E1EA2A311 /* Pods_ClockRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D957768E2AD9484D0F9583C /* Pods_ClockRadio.framework */; };
+		7F0C19A81E8190B900AF1215 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7F0C19A71E8190B900AF1215 /* Podfile */; };
+		7F0C19AA1E81E78D00AF1215 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */; };
 		7FD9EEF41E80610C00B356E3 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD9EEF31E80610C00B356E3 /* Weather.swift */; };
 		7FF267EB1E7F332700E54AEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF267EA1E7F332700E54AEE /* AppDelegate.swift */; };
 		7FF267ED1E7F332700E54AEE /* AlarmClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF267EC1E7F332700E54AEE /* AlarmClockViewController.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D957768E2AD9484D0F9583C /* Pods_ClockRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClockRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F0C19A71E8190B900AF1215 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		7FD9EEF31E80610C00B356E3 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		7FF267E71E7F332700E54AEE /* ClockRadio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClockRadio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF267EA1E7F332700E54AEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +30,8 @@
 		7FF267F11E7F332700E54AEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FF267F41E7F332700E54AEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7FF267F61E7F332700E54AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B40FA0B6B401DF5C19AE02A /* Pods-ClockRadio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClockRadio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClockRadio/Pods-ClockRadio.debug.xcconfig"; sourceTree = "<group>"; };
+		D995B18FEBE1856E2FC49E90 /* Pods-ClockRadio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClockRadio.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClockRadio/Pods-ClockRadio.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +39,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EE38EB2859429E1EA2A311 /* Pods_ClockRadio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00D6C4632F45D5BC8FF9ECD9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9B40FA0B6B401DF5C19AE02A /* Pods-ClockRadio.debug.xcconfig */,
+				D995B18FEBE1856E2FC49E90 /* Pods-ClockRadio.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2F79868F7B69F64F6B58BF7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D957768E2AD9484D0F9583C /* Pods_ClockRadio.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7FF267DE1E7F332700E54AEE = {
 			isa = PBXGroup;
 			children = (
+				7F0C19A71E8190B900AF1215 /* Podfile */,
 				7FF267E91E7F332700E54AEE /* ClockRadio */,
 				7FF267E81E7F332700E54AEE /* Products */,
+				00D6C4632F45D5BC8FF9ECD9 /* Pods */,
+				2F79868F7B69F64F6B58BF7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +92,7 @@
 				7FF267F31E7F332700E54AEE /* LaunchScreen.storyboard */,
 				7FF267F61E7F332700E54AEE /* Info.plist */,
 				7FD9EEF31E80610C00B356E3 /* Weather.swift */,
+				7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */,
 			);
 			path = ClockRadio;
 			sourceTree = "<group>";
@@ -74,9 +104,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FF267F91E7F332700E54AEE /* Build configuration list for PBXNativeTarget "ClockRadio" */;
 			buildPhases = (
+				C7258F4CF271F7060B23FB6D /* [CP] Check Pods Manifest.lock */,
 				7FF267E31E7F332700E54AEE /* Sources */,
 				7FF267E41E7F332700E54AEE /* Frameworks */,
 				7FF267E51E7F332700E54AEE /* Resources */,
+				20D58422A842AA904BDEF971 /* [CP] Embed Pods Frameworks */,
+				B2479662A700C1E1EDD63639 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -129,11 +162,60 @@
 			files = (
 				7FF267F51E7F332700E54AEE /* LaunchScreen.storyboard in Resources */,
 				7FF267F21E7F332700E54AEE /* Assets.xcassets in Resources */,
+				7F0C19A81E8190B900AF1215 /* Podfile in Resources */,
 				7FF267F01E7F332700E54AEE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20D58422A842AA904BDEF971 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClockRadio/Pods-ClockRadio-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2479662A700C1E1EDD63639 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClockRadio/Pods-ClockRadio-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7258F4CF271F7060B23FB6D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7FF267E31E7F332700E54AEE /* Sources */ = {
@@ -141,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FF267ED1E7F332700E54AEE /* AlarmClockViewController.swift in Sources */,
+				7F0C19AA1E81E78D00AF1215 /* WeatherModel.swift in Sources */,
 				7FD9EEF41E80610C00B356E3 /* Weather.swift in Sources */,
 				7FF267EB1E7F332700E54AEE /* AppDelegate.swift in Sources */,
 			);
@@ -263,6 +346,7 @@
 		};
 		7FF267FA1E7F332700E54AEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B40FA0B6B401DF5C19AE02A /* Pods-ClockRadio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P7CNL3RWY3;
@@ -276,6 +360,7 @@
 		};
 		7FF267FB1E7F332700E54AEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D995B18FEBE1856E2FC49E90 /* Pods-ClockRadio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P7CNL3RWY3;
