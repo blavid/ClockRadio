@@ -14,7 +14,6 @@ class Radio {
     private init() {
         opbUrl = URL(string:"http://stream1.opb.org/radio.mp3")!
         player = AVPlayer(url: opbUrl)
-        let player2 = AVPlayerItem(url: opbUrl)
     }
     
     // The one-line singlton
@@ -30,7 +29,6 @@ class Radio {
     
     func pause() {
         player.pause()
-        player.
         isPlaying = false
     }
     

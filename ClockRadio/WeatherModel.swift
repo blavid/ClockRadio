@@ -1,41 +1,43 @@
 import Alamofire
 import SwiftyJSON
+import CoreLocation
 
 protocol WeatherModelDelegate {
     func dataIsReady()
 }
 
-class WeatherModel {
+class WeatherModel: NSObject {
     // prevent others from initing this class outside of the singlton
-    private init() {}
+    private override init() {}
     
     // The one-line singlton
     static let sharedInstance = WeatherModel()
     
-    let baseWeatherUrl = "https://api.weather.gov/"
-    let latitude = 45.522
-    let longitude = -122.676
-    let stationID = "KPDX"
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+//    var stationID = "KPDX"
     
     var closestWeatherStation = ""
-    var currentConditioins = CurrentConditions()
+    var currentConditions = CurrentConditions()
     var forecast = Forecast()
     var delegate: WeatherModelDelegate?
     
     func fetchAllWeather() {
-        fetchForecast()
         fetchLocalWeatherConditions()
+        fetchForecast()
     }
     
     private func fetchLocalWeatherConditions() {
         
-        let weatherStationsUrl = "\(baseWeatherUrl)/points/\(latitude),\(longitude)/stations"
+        // Truncate the latitude and longitude so that NWS doesn't choke on the long values
+        let shortLatitude = String(format: "%.3f", latitude)
+        let shortLongitude = String(format: "%.3f", longitude)
+        let weatherStationsUrl = "\(kBaseWeatherUrl)/points/\(shortLatitude),\(shortLongitude)/stations"
         Alamofire.request(weatherStationsUrl)
         .responseJSON { response in
             if let responseValue = response.result.value {
                 let json = JSON(responseValue)
                 let closestWeatherStation = json["observationStations"][0].string ?? ""
-                print(closestWeatherStation)
                 self.closestWeatherStation = closestWeatherStation
                 self.fetchCurrentConditionsFromStationUrl(closestWeatherStation)
             }
@@ -53,7 +55,8 @@ class WeatherModel {
                 let tempC = json["properties"]["temperature"]["value"].double ?? 0
                 currentConditions.temperature = self.convertCtoF(tempC)
                 currentConditions.description = json["properties"]["textDescription"].string
-                currentConditions.windDirection = self.cardinalDirectionFromDegree(json["properties"]["windDirection"]["value"].double!)
+                let windDirectionDegrees = json["properties"]["windDirection"]["value"].double ?? 0
+                currentConditions.windDirection = self.cardinalDirectionFromDegree(windDirectionDegrees)
                 let windSpeedMeters = json["properties"]["windSpeed"]["value"].double ?? 0
                 currentConditions.windSpeed = self.convertKilometerstoMiles(windSpeedMeters)
                 let windGustMeters = json["properties"]["windGust"]["value"].double ?? 0
@@ -61,14 +64,18 @@ class WeatherModel {
                 let visibilityMeters = json["properties"]["visibility"]["value"].int ?? 0
                 currentConditions.visibility = self.convertKilometerstoMiles(Double(visibilityMeters))
                 currentConditions.relativeHumidity = json["properties"]["relativeHumidity"]["value"].double
-                self.currentConditioins = currentConditions
+                self.currentConditions = currentConditions
                 self.delegate?.dataIsReady()
             }
         }
     }
     
     private func fetchForecast() {
-        let forecastUrl = "\(baseWeatherUrl)/points/\(latitude),\(longitude)/forecast"
+        
+        // Truncate the latitude and longitude so that NWS doesn't choke on the long values
+        let shortLatitude = String(format: "%.3f", latitude)
+        let shortLongitude = String(format: "%.3f", longitude)
+        let forecastUrl = "\(kBaseWeatherUrl)/points/\(shortLatitude),\(shortLongitude)/forecast"
         Alamofire.request(forecastUrl)
             .responseJSON { (response) in
                 var forecast = Forecast()
@@ -147,5 +154,5 @@ class WeatherModel {
     private func convertMilestoKilometers(_ miles: Double) -> Int {
         return Int(miles * 1.60934)
     }
-    
+
 }

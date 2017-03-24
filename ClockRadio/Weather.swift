@@ -7,6 +7,25 @@ struct CurrentConditions {
     var windGust: Int?
     var visibility: Int?
     var relativeHumidity: Double?
+    
+    var shortDescription: String {
+        get {
+            // Either: 78° Wind: NNE 5 mph
+            // or
+            // 78° no wind
+            // or
+            // no data
+            var desc = ""
+            if let temp = temperature {
+                desc = temp.description + "°"
+            }
+            if let windspd = windSpeed {
+                
+            }
+//            currentTemp + "° Wind: " + windDir + " " + windSpeed + " mph"
+            return "Hello. I am a CurrentCondition"
+        }
+    }
 }
 
 struct Forecast {
@@ -17,5 +36,11 @@ struct Forecast {
     var windDirection: String?
     var shortForecast: String?
     var detailedForecast: String?
+    
+    var shortDescription: String {
+        get {
+            return "Hello. I am a Forecast"
+        }
+    }
 
 }
