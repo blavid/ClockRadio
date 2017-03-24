@@ -1,0 +1,77 @@
+Alarm Clock Stuff To Do
+
+TODO
+-------------------
+Create GeoLocationManager class
+Create a GeoLocationManagerDelegate protocol
+
+
+
+
+Get current geo coordinates and use for queries
+	Need icon images for basic weather
+		Windy
+		Rainy
+		Snowy
+		Cloudy
+		Sunny
+	Need icons for launch screen
+
+Add page to set an Alarm
+	One time or repeating
+	Time
+	am/pm
+	day(s)
+	alarm sound
+
+Change the weather forecast to an array of future forecasts
+Fix the UI
+	Clean up placement and display
+	Show upcoming high and low
+	Make weather forecasts scrollable
+Add page to select a radio station
+Add alarm stop button
+Add alarm snooze button
+Add sleep timer
+Pause play when minimized (AppDelegate)
+Add pan gesture dimmer
+Add timer to fetch weather every hour
+
+
+
+DONE
+-------------------
+Create a WeatherModel class with methods for fetching weather data.
+Create a delegate property
+Create a protocol for the WeatherModel class: WeatherModelDelegate
+Let the view controller conform to the delegate protocol
+set the view controller to be the delegate
+Call the delegate method when the JSON is ready
+The delegate method will update the UI.
+Use Alamofire and SwiftyJSON to fetch and parse the results.
+
+
+WeatherModel will have the following methods:
+	func fetchLocalWeatherStations() -> [String] 
+		returns a list of weather station URLs
+
+	func fetchClosestWeatherStation() -> String
+		returns the URL string of the closest weather station
+
+	func getCurrentConditionsFromStationURL(_ url: URL) -> CurrentConditions
+
+	func getForecast() -> Forecast
+
+	Update radio play button when paused/playing
+Add images
+	Need background images for:
+		Daytime
+			cloudy
+			rainy
+			snowy
+			clear
+		Evening
+			cloudy
+			rainy
+			snowy
+			clear
