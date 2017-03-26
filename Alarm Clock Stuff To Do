@@ -2,6 +2,13 @@ Alarm Clock Stuff To Do
 
 TODO
 -------------------
+Create an APIManager class
+	Manages all REST APIs
+	Is a delegate for geoLocation and weather
+	Properties:
+		
+	Functions:
+		
 Create GeoLocationManager class
 Create a GeoLocationManagerDelegate protocol
 

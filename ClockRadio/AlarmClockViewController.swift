@@ -5,7 +5,7 @@ import SwiftyJSON
 import Alamofire
 import CoreLocation
 
-class AlarmClockViewController: UIViewController, WeatherModelDelegate, CLLocationManagerDelegate {
+class AlarmClockViewController: UIViewController, WeatherModelDelegate, GeoManagerDelegate {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     
@@ -18,8 +18,6 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, CLLocati
     // Current Weather Conditions
     @IBOutlet weak var currentDescription: UILabel!
     @IBOutlet weak var currentBasics: UILabel!
-    @IBOutlet weak var currentVisibility: UILabel!
-    @IBOutlet weak var currentHumidity: UILabel!
     
     // Weather Forecast
     @IBOutlet weak var forecastBasics: UILabel!
@@ -38,13 +36,16 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, CLLocati
     }
     
     let model = WeatherModel.sharedInstance
-    let locationManager = CLLocationManager()
+    let locationManager = GeoManager.sharedInstance
     let radio = Radio.sharedInstance
     
-    func dataIsReady() {
+    func didRecieveCurrentConditions() {
         updateCurrentConditionsUI()
-        updateForecastUI()
         updateBackgroundImage()
+    }
+    
+    func didRecieveForecast() {
+        updateForecastUI()
     }
     
     override func viewDidLoad() {
@@ -54,12 +55,8 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, CLLocati
         model.delegate = self
         locationManager.delegate = self
         
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager.requestWhenInUseAuthorization()
-        
         let weatherUpdateTimer = Timer.scheduledTimer(withTimeInterval: kWeatherRequestIntervalSeconds, repeats: true) { (_) in
-            self.locationManager.startUpdatingLocation()
-            self.model.fetchAllWeather()
+            self.locationManager.locate()
         }
         weatherUpdateTimer.fire()
         
@@ -92,24 +89,13 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, CLLocati
     func updateCurrentConditionsUI() {
         let shortDescription = model.currentConditions.description ?? ""
         currentDescription.text = shortDescription
-//        let currentTemp = model.currentConditions.temperature?.description ?? ""
-//        let windDir = model.currentConditions.windDirection ?? ""
-//        let windSpeed = model.currentConditions.windSpeed?.description ?? ""
-//        let basics = currentTemp + "° Wind: " + windDir + " " + windSpeed + " mph"
         currentBasics.text = model.currentConditions.shortDescription
-        currentVisibility.text = model.currentConditions.visibility?.description ?? ""
-        currentHumidity.text = model.currentConditions.relativeHumidity?.description ?? ""
     }
     
     func updateForecastUI() {
         forecastName.text = model.forecast.name ?? ""
         detailedForecast.text = model.forecast.detailedForecast ?? ""
         shortForecast.text = model.forecast.shortForecast ?? ""
-        
-//        let currentTemp = model.forecast.temperature?.description ?? ""
-//        let windDir = model.forecast.windDirection ?? ""
-//        let windSpeed = model.forecast.windSpeed?.description ?? ""
-//        let basics = currentTemp + "° Wind: " + windDir + windSpeed
         forecastBasics.text = model.forecast.shortDescription
     }
     
@@ -156,22 +142,11 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, CLLocati
         }
     }
     
-    // Core Location Stuff
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let currentLocation = locations.last
-        model.latitude = currentLocation!.coordinate.latitude
-        model.longitude = currentLocation!.coordinate.longitude
-        model.fetchAllWeather()
-        locationManager.stopUpdatingLocation()
+    func didUpdateLocation() {
+        if let lat = locationManager.latitude, let long = locationManager.longitude {
+            model.fetchAllWeatherForLatitude(lat, longitude: long)
+            print("Locstion: \(locationManager.administrativeArea!)")
+        }
     }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error: Unable to determine location")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        locationManager.startUpdatingLocation()
-    }
-    
 }
 

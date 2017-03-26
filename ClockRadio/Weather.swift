@@ -20,10 +20,19 @@ struct CurrentConditions {
                 desc = temp.description + "°"
             }
             if let windspd = windSpeed {
+                if windspd < 2 {
+                    desc = desc + " light winds"
+                } else {
+                    desc = desc + " \(windspd) mph"
+                }
                 
+                if let winddir = windDirection {
+                    desc = desc + " \(winddir)"
+                }
             }
-//            currentTemp + "° Wind: " + windDir + " " + windSpeed + " mph"
-            return "Hello. I am a CurrentCondition"
+            
+            //            currentTemp + "° Wind: " + windDir + " " + windSpeed + " mph"
+            return desc
         }
     }
 }
@@ -39,8 +48,22 @@ struct Forecast {
     
     var shortDescription: String {
         get {
-            return "Hello. I am a Forecast"
+            // Either: 78° Wind: NNE 5 mph
+            // or
+            // 78° no wind
+            // or
+            // no data
+            var desc = ""
+            if let temp = temperature {
+                desc = temp.description + "°"
+            }
+            desc = desc + (windSpeed ?? "No wind")
+            
+            if let winddir = windDirection {
+                desc = desc + " \(winddir)"
+            }
+            return desc
         }
     }
-
+    
 }

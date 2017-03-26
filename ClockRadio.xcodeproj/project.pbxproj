@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45EE38EB2859429E1EA2A311 /* Pods_ClockRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D957768E2AD9484D0F9583C /* Pods_ClockRadio.framework */; };
+		5B7E9C111E872AAE00A74C42 /* GeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7E9C101E872AAE00A74C42 /* GeoManager.swift */; };
 		7F0C19A81E8190B900AF1215 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7F0C19A71E8190B900AF1215 /* Podfile */; };
 		7F0C19AA1E81E78D00AF1215 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */; };
 		7F0C19AC1E8221C200AF1215 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C19AB1E8221C200AF1215 /* Radio.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		3D957768E2AD9484D0F9583C /* Pods_ClockRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClockRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B7E9C101E872AAE00A74C42 /* GeoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoManager.swift; sourceTree = "<group>"; };
 		7F0C19A71E8190B900AF1215 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7F0C19A91E81E78D00AF1215 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		7F0C19AB1E8221C200AF1215 /* Radio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				7F0C19AD1E82CEB300AF1215 /* Supporting Files */,
 				7FF267EA1E7F332700E54AEE /* AppDelegate.swift */,
 				7FF267EC1E7F332700E54AEE /* AlarmClockViewController.swift */,
+				5B7E9C101E872AAE00A74C42 /* GeoManager.swift */,
 				7FF267EE1E7F332700E54AEE /* Main.storyboard */,
 				7F0C19AB1E8221C200AF1215 /* Radio.swift */,
 				7FD9EEF31E80610C00B356E3 /* Weather.swift */,
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F0C19AC1E8221C200AF1215 /* Radio.swift in Sources */,
+				5B7E9C111E872AAE00A74C42 /* GeoManager.swift in Sources */,
 				7FF267ED1E7F332700E54AEE /* AlarmClockViewController.swift in Sources */,
 				7F0C19AA1E81E78D00AF1215 /* WeatherModel.swift in Sources */,
 				7FD9EEF41E80610C00B356E3 /* Weather.swift in Sources */,
@@ -367,6 +371,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P7CNL3RWY3;
 				INFOPLIST_FILE = ClockRadio/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blavid.ClockRadio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -381,6 +386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P7CNL3RWY3;
 				INFOPLIST_FILE = ClockRadio/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blavid.ClockRadio;
 				PRODUCT_NAME = "$(TARGET_NAME)";

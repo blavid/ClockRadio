@@ -3,28 +3,32 @@ import SwiftyJSON
 import CoreLocation
 
 protocol WeatherModelDelegate {
-    func dataIsReady()
+    func didRecieveForecast()
+    func didRecieveCurrentConditions()
 }
 
 class WeatherModel: NSObject {
     // prevent others from initing this class outside of the singlton
-    private override init() {}
+    private override init() {
+        super.init()
+    }
     
     // The one-line singlton
     static let sharedInstance = WeatherModel()
     
     var latitude: Double = 0.0
     var longitude: Double = 0.0
-//    var stationID = "KPDX"
     
     var closestWeatherStation = ""
     var currentConditions = CurrentConditions()
     var forecast = Forecast()
     var delegate: WeatherModelDelegate?
+    var geoManager = GeoManager.sharedInstance
     
-    func fetchAllWeather() {
+    func fetchAllWeatherForLatitude(_ latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
         fetchLocalWeatherConditions()
-        fetchForecast()
     }
     
     private func fetchLocalWeatherConditions() {
@@ -40,6 +44,9 @@ class WeatherModel: NSObject {
                 let closestWeatherStation = json["observationStations"][0].string ?? ""
                 self.closestWeatherStation = closestWeatherStation
                 self.fetchCurrentConditionsFromStationUrl(closestWeatherStation)
+                self.delegate?.didRecieveForecast()
+                self.fetchForecast()
+
             }
             
         }
@@ -65,7 +72,7 @@ class WeatherModel: NSObject {
                 currentConditions.visibility = self.convertKilometerstoMiles(Double(visibilityMeters))
                 currentConditions.relativeHumidity = json["properties"]["relativeHumidity"]["value"].double
                 self.currentConditions = currentConditions
-                self.delegate?.dataIsReady()
+                self.delegate?.didRecieveCurrentConditions()
             }
         }
     }
@@ -75,7 +82,7 @@ class WeatherModel: NSObject {
         // Truncate the latitude and longitude so that NWS doesn't choke on the long values
         let shortLatitude = String(format: "%.3f", latitude)
         let shortLongitude = String(format: "%.3f", longitude)
-        let forecastUrl = "\(kBaseWeatherUrl)/points/\(shortLatitude),\(shortLongitude)/forecast"
+        let forecastUrl = "\(kBaseWeatherUrl)points/\(shortLatitude),\(shortLongitude)/forecast"
         Alamofire.request(forecastUrl)
             .responseJSON { (response) in
                 var forecast = Forecast()
@@ -89,7 +96,7 @@ class WeatherModel: NSObject {
                     forecast.shortForecast = json["properties"]["periods"][0]["shortForecast"].string
                     forecast.isDayTime = json["properties"]["periods"][0]["isDayTime"].bool
                     self.forecast = forecast
-                    self.delegate?.dataIsReady()
+                    self.delegate?.didRecieveForecast()
                 }
         }
     }
@@ -144,7 +151,7 @@ class WeatherModel: NSObject {
     }
     
     private func convertCtoF(_ degreesC: Double) -> Int {
-        return Int((degreesC + 32) * 9 / 5)
+        return Int((degreesC * 9 / 5) + 32)
     }
     
     private func convertKilometerstoMiles(_ kilometers: Double) -> Int {
