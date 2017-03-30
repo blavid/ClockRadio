@@ -35,7 +35,8 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, GeoManag
         }
     }
     
-    let model = WeatherModel.sharedInstance
+//    let model = WeatherModel.sharedInstance
+    let noaaWeatherModel = NOAAWeatherSoap.sharedInstance
     let locationManager = GeoManager.sharedInstance
     let radio = Radio.sharedInstance
     
@@ -46,13 +47,14 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, GeoManag
     
     func didRecieveForecast() {
         updateForecastUI()
+        updateCurrentConditionsUI()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        model.delegate = self
+        noaaWeatherModel.delegate = self
         locationManager.delegate = self
         
         let weatherUpdateTimer = Timer.scheduledTimer(withTimeInterval: kWeatherRequestIntervalSeconds, repeats: true) { (_) in
@@ -87,22 +89,21 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, GeoManag
     }
     
     func updateCurrentConditionsUI() {
-        let shortDescription = model.currentConditions.description ?? ""
-        currentDescription.text = shortDescription
-        currentBasics.text = model.currentConditions.shortDescription
+        currentDescription.text = noaaWeatherModel.weather.currentBriefDescription
+        currentBasics.text = noaaWeatherModel.weather.shortDescription
     }
     
     func updateForecastUI() {
-        forecastName.text = model.forecast.name ?? ""
-        detailedForecast.text = model.forecast.detailedForecast ?? ""
-        shortForecast.text = model.forecast.shortForecast ?? ""
-        forecastBasics.text = model.forecast.shortDescription
+        forecastName.text = noaaWeatherModel.weather.forecasts?[0].name ?? ""
+        detailedForecast.text = noaaWeatherModel.weather.forecasts?[0].detailedForecast ?? ""
+        shortForecast.text = noaaWeatherModel.weather.forecasts?[0].shortForecast ?? ""
+        forecastBasics.text = noaaWeatherModel.weather.forecasts?[0].shortDescription
     }
     
 
     func updateBackgroundImage() {
-        if let shortDescription = model.currentConditions.description?.lowercased() {
-            let isDayTime = model.forecast.isDayTime ?? true
+        if let shortDescription = noaaWeatherModel.weather.currentBriefDescription?.lowercased() {
+            let isDayTime = (noaaWeatherModel.weather.forecasts?[0].temperatureLabel == "High")
             
             
             switch (shortDescription, isDayTime) {
@@ -144,8 +145,9 @@ class AlarmClockViewController: UIViewController, WeatherModelDelegate, GeoManag
     
     func didUpdateLocation() {
         if let lat = locationManager.latitude, let long = locationManager.longitude {
-            model.fetchAllWeatherForLatitude(lat, longitude: long)
-            print("Locstion: \(locationManager.administrativeArea!)")
+            noaaWeatherModel.fetchWeather()
+            print("Locstion: \(locationManager.administrativeArea)")
+            print("Getting weather for: \(lat), \(long)")
         }
     }
 }

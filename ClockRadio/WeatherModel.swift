@@ -89,7 +89,7 @@ class WeatherModel: NSObject {
                 if let responseValue = response.result.value {
                     let json = JSON(responseValue)
                     forecast.name = json["properties"]["periods"][0]["name"].string
-                    forecast.temperature = json["properties"]["periods"][0]["temperature"].int
+                    forecast.temperature = json["properties"]["periods"][0]["temperature"].int?.description
                     forecast.detailedForecast = json["properties"]["periods"][0]["detailedForecast"].string
                     forecast.windDirection = json["properties"]["periods"][0]["windDirection"].string
                     forecast.windSpeed = json["properties"]["periods"][0]["windSpeed"].string

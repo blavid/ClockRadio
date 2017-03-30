@@ -40,9 +40,11 @@ struct CurrentConditions {
 struct Forecast {
     var name: String?
     var isDayTime: Bool?
-    var temperature: Int?
+    var temperatureLabel: String?
+    var temperature: String?
     var windSpeed: String?
     var windDirection: String?
+    var hazard: String?
     var shortForecast: String?
     var detailedForecast: String?
     
@@ -64,6 +66,27 @@ struct Forecast {
             }
             return desc
         }
+        set {
+            
+        }
     }
     
+}
+
+struct Weather {
+    var currentBriefDescription: String?
+    var currentTemperature: String?
+    var currentRelativeHumidity: String?
+    var currentWindSpeed: String?
+    var currentWindGust: String?
+    var currentWindDirection: String?
+    var currentVisibility: String?
+    var currentWindChill: String?
+    var forecasts: [Forecast]?
+    
+    var shortDescription: String? {
+        get {
+            return "A short description of the current weather"
+        }
+    }
 }
